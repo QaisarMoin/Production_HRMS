@@ -309,7 +309,7 @@ const OfferLetterMaster = () => {
               className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold font-mono whitespace-pre-wrap"
               placeholder="Design template using variables {{employee_name}}, {{designation}}, etc."
             />
-            <span className="text-[9px] text-gray-400 font-medium block mt-1">Variables list: `{{employee_name}}`, `{{designation}}`, `{{joining_date}}`, `{{salary}}`, `{{company_name}}`.</span>
+            <span className="text-[9px] text-gray-400 font-medium block mt-1">Variables list: `{"{{employee_name}}"}`, `{"{{designation}}"}`, `{"{{joining_date}}"}`, `{"{{salary}}"}`, `{"{{company_name}}"}`.</span>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
