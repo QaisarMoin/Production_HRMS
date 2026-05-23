@@ -281,7 +281,7 @@ const CalendarWidget = () => {
           </div>
           {selectedDayHoliday && (
             <span className="bg-rose-100 text-rose-700 font-extrabold text-sm px-3 py-1 rounded-lg">
-              🎉 Holiday: {selectedDayHoliday.name}
+              Holiday: {selectedDayHoliday.name}
             </span>
           )}
         </div>

@@ -19,7 +19,7 @@ const menuItems = [
     isAttendanceAccordion: true },
   { name: 'Reimbursement', path: '/reimbursement', icon: DollarSign },
   { name: 'Leave', path: '/leave', icon: FileText },
-  { name: 'Payroll', path: '/payroll', icon: DollarSign },
+  { name: 'Payroll', path: '/payroll', icon: DollarSign, isPayrollAccordion: true },
   { name: 'Reports', path: '/reports', icon: FileText },
   
   { name: 'Geo Location', path: '/geo-location', icon: MapPin },
@@ -63,17 +63,31 @@ const attendanceSubItems = [
   { id: 'Approve Permission', icon: Shield, label: 'Approve Permission' },
 ];
 
+const payrollSubItems = [
+  { id: 'Tax Regimes', icon: FileText, label: 'Tax Regimes' },
+  { id: 'Declarations', icon: CheckSquare, label: 'Declarations' },
+  { id: 'IT Proofs', icon: ClipboardList, label: 'IT Proofs' },
+  { id: 'Previous Deductions', icon: DollarSign, label: 'Previous Deductions' },
+  { id: 'Advance Salary', icon: Briefcase, label: 'Advance Salary' },
+  { id: 'Generate Payroll', icon: Sliders, label: 'Generate Payroll' },
+  { id: 'Final Settlements', icon: Users, label: 'Final Settlements' },
+  { id: 'Payslips', icon: FileText, label: 'Payslips' },
+  { id: 'Salary Revisions', icon: Award, label: 'Salary Revisions' },
+];
+
 const Sidebar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [mastersExpanded, setMastersExpanded] = useState(false);
   const [coreHrExpanded, setCoreHrExpanded] = useState(false);
   const [attendanceExpanded, setAttendanceExpanded] = useState(false);
+  const [payrollExpanded, setPayrollExpanded] = useState(false);
 
   useEffect(() => {
     if (location.pathname.startsWith('/masters')) setMastersExpanded(true);
     if (location.pathname.startsWith('/core-hr')) setCoreHrExpanded(true);
     if (location.pathname.startsWith('/attendance')) setAttendanceExpanded(true);
+    if (location.pathname.startsWith('/payroll')) setPayrollExpanded(true);
   }, [location.pathname]);
 
   const handleLogout = () => {
@@ -98,6 +112,13 @@ const Sidebar = () => {
     if (location.pathname !== '/attendance') return false;
     const searchParams = new URLSearchParams(location.search);
     const activeTab = searchParams.get('tab') || 'Attendance Log';
+    return activeTab === subId;
+  };
+
+  const isPayrollSubActive = (subId) => {
+    if (location.pathname !== '/payroll') return false;
+    const searchParams = new URLSearchParams(location.search);
+    const activeTab = searchParams.get('tab') || 'Tax Regimes';
     return activeTab === subId;
   };
 
@@ -238,6 +259,55 @@ const Sidebar = () => {
                           <li key={subItem.id}>
                             <Link
                               to={`/attendance?tab=${encodeURIComponent(subItem.id)}`}
+                              className={`flex items-center px-3 py-2 rounded-lg text-xs font-medium transition-all no-underline ${
+                                isSubActive
+                                  ? 'bg-blue-600 text-white shadow-sm'
+                                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                              }`}
+                            >
+                              <SubIcon className={`w-3.5 h-3.5 mr-2 ${isSubActive ? 'text-white' : 'text-gray-400'}`} />
+                              <span>{subItem.label}</span>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </li>
+              );
+            }
+
+            if (item.isPayrollAccordion) {
+              return (
+                <li key={item.path} className="space-y-1">
+                  <button
+                    onClick={() => setPayrollExpanded(!payrollExpanded)}
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all border-0 bg-transparent cursor-pointer font-semibold text-sm ${
+                      location.pathname.startsWith('/payroll')
+                        ? 'bg-blue-50 text-blue-600'
+                        : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <Icon className="w-5 h-5 mr-3 text-gray-500" />
+                      <span>{item.name}</span>
+                    </div>
+                    {payrollExpanded ? (
+                      <ChevronUp className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-500" />
+                    )}
+                  </button>
+
+                  {payrollExpanded && (
+                    <ul className="pl-4 pr-1 py-1 space-y-1 list-none m-0 border-l border-gray-100 ml-6">
+                      {payrollSubItems.map((subItem) => {
+                        const SubIcon = subItem.icon;
+                        const isSubActive = isPayrollSubActive(subItem.id);
+                        return (
+                          <li key={subItem.id}>
+                            <Link
+                              to={`/payroll?tab=${encodeURIComponent(subItem.id)}`}
                               className={`flex items-center px-3 py-2 rounded-lg text-xs font-medium transition-all no-underline ${
                                 isSubActive
                                   ? 'bg-blue-600 text-white shadow-sm'

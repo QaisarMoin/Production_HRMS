@@ -1,16 +1,68 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-50: #f0f9ff;
-  --color-primary-100: #e0f2fe;
-  --color-primary-200: #bae6fd;
-  --color-primary-300: #7dd3fc;
-  --color-primary-400: #38bdf8;
-  --color-primary-500: #0ea5e9;
-  --color-primary-600: #0284c7;
-  --color-primary-700: #0369a1;
-  --color-primary-800: #075985;
-  --color-primary-900: #0c4a6e;
+  /* Override Default Primary with Corporate Green (HROne inspired) */
+  --color-primary-50: #e6f7f3;
+  --color-primary-100: #ccf0e8;
+  --color-primary-200: #99e2d1;
+  --color-primary-300: #66d3ba;
+  --color-primary-400: #33c5a4;
+  --color-primary-500: #00b68d;
+  --color-primary-600: #009673;
+  --color-primary-700: #007a5e;
+  --color-primary-800: #005d47;
+  --color-primary-900: #004d3d;
+  --color-primary-950: #003b2f;
+
+  /* Map standard colors used in codebase directly to Corporate Green to transform the whole app */
+  --color-blue-50: #e6f7f3;
+  --color-blue-100: #ccf0e8;
+  --color-blue-200: #99e2d1;
+  --color-blue-300: #66d3ba;
+  --color-blue-400: #33c5a4;
+  --color-blue-500: #00b68d;
+  --color-blue-600: #007a5e; /* HROne Deep Teal/Green button accent */
+  --color-blue-700: #00664f;
+  --color-blue-800: #005d47;
+  --color-blue-900: #004d3d; /* Dark theme backdrop */
+  --color-blue-950: #003b2f;
+
+  --color-indigo-50: #edfcf7;
+  --color-indigo-100: #d5f7ec;
+  --color-indigo-200: #aeeed9;
+  --color-indigo-300: #7ae1bf;
+  --color-indigo-400: #4bd0a4;
+  --color-indigo-500: #00b68d;
+  --color-indigo-600: #009673;
+  --color-indigo-700: #007a5e;
+  --color-indigo-800: #005d47;
+  --color-indigo-900: #004d3d;
+  --color-indigo-950: #003b2f;
+
+  --color-sky-50: #f0fdf4;
+  --color-sky-100: #dcfce7;
+  --color-sky-200: #bbf7d0;
+  --color-sky-300: #86efac;
+  --color-sky-400: #4ade80;
+  --color-sky-500: #22c55e;
+  --color-sky-600: #16a34a;
+  --color-sky-700: #15803d;
+  --color-sky-800: #166534;
+  --color-sky-900: #14532d;
+  --color-sky-950: #052e16;
+
+  /* Override Purple to Teal/Green */
+  --color-purple-50: #edfcf7;
+  --color-purple-100: #d5f7ec;
+  --color-purple-200: #aeeed9;
+  --color-purple-300: #7ae1bf;
+  --color-purple-400: #4bd0a4;
+  --color-purple-500: #00b68d;
+  --color-purple-600: #009673;
+  --color-purple-700: #007a5e;
+  --color-purple-800: #005d47;
+  --color-purple-900: #004d3d;
+  --color-purple-950: #003b2f;
 }
 
 :root {

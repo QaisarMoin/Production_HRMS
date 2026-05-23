@@ -13,6 +13,8 @@ const coreHrRoutes = require('./routes/coreHr');
 const attendanceRoutes     = require('./routes/attendance');
 const reimbursementRoutes  = require('./routes/reimbursement');
 const leaveRoutes = require('./routes/leave');
+const payrollRoutes = require('./routes/payroll');
+const dashboardRoutes = require('./routes/dashboard');
 
 // Initialize Express app
 const app = express();
@@ -68,6 +70,8 @@ app.use('/api', coreHrRoutes);
 app.use('/api', attendanceRoutes);
 app.use('/api', reimbursementRoutes);
 app.use('/api', leaveRoutes);
+app.use('/api', payrollRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 // Base route
 app.get('/', (req, res) => {

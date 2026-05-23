@@ -26,6 +26,34 @@ import LoadingSkeleton from "../components/dashboard/LoadingSkeleton";
 import CalendarWidget from "../components/dashboard/CalendarWidget";
 import { dashboardService } from "../services/dashboardService";
 
+const iconMap = {
+  Users,
+  UserCheck,
+  UserX,
+  Clock,
+  AlertCircle,
+  CalendarCheck,
+  UserPlus,
+  UserMinus,
+  Briefcase,
+  Monitor,
+  Headphones,
+  ShoppingCart,
+  Factory,
+  Building2,
+  Megaphone,
+  Globe,
+  DollarSign
+};
+
+const getIcon = (iconName) => {
+  if (!iconName) return Users;
+  if (typeof iconName === "string") {
+    return iconMap[iconName] || Users;
+  }
+  return iconName;
+};
+
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [selectedType, setSelectedType] = useState("monthly");
@@ -57,11 +85,11 @@ const Dashboard = () => {
         dashboardService.getAttendanceStats(),
       ]);
 
-      setEmployeeStats(employeeData);
-      setDepartments(departmentData);
-      setMigrantStats(migrantData);
-      setWorkforceInsights(insightsData);
-      setAttendanceStats(attendanceData);
+      setEmployeeStats(employeeData.data || employeeData || []);
+      setDepartments(departmentData.data || departmentData || []);
+      setMigrantStats(migrantData.data || migrantData || []);
+      setWorkforceInsights(insightsData.data || insightsData || []);
+      setAttendanceStats(attendanceData.data || attendanceData || []);
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
       
@@ -250,23 +278,23 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="space-y-10 pb-16">
-      {/* 1. Header Hero Panel */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+    <div className="space-y-8 pb-16">
+      {/* 1. Header Hero Panel (Compact) */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl py-5 px-6 md:py-6 md:px-8 text-white shadow-lg relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.08),transparent)] pointer-events-none" />
-        <div className="text-left space-y-2 z-10">
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight m-0 text-white">
+        <div className="text-left space-y-1.5 z-10">
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight m-0 text-white">
             Welcome Back, Admin
           </h1>
-          <p className="text-blue-100 text-sm md:text-base font-medium max-w-xl">
+          <p className="text-blue-100 text-xs md:text-sm font-medium max-w-xl m-0">
             Monitor attendance stats, manage organizational departments, track workforce attrition ratios, and update holiday lists from a centralized panel.
           </p>
         </div>
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 flex items-center gap-4 text-left z-10 shadow-sm self-stretch md:self-auto justify-center">
-          <CalendarIcon className="w-10 h-10 text-amber-300" />
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/20 flex items-center gap-3 text-left z-10 shadow-sm self-stretch md:self-auto justify-center">
+          <CalendarIcon className="w-6 h-6 text-amber-300" />
           <div>
-            <p className="text-xs text-blue-200 font-bold uppercase tracking-wider">Current Session</p>
-            <p className="text-md font-bold text-white leading-none mt-1">
+            <p className="text-[10px] text-blue-200 font-bold uppercase tracking-wider m-0">Current Session</p>
+            <p className="text-sm font-bold text-white leading-none mt-1 m-0">
               {months[new Date().getMonth()]} {new Date().getFullYear()}
             </p>
           </div>
@@ -283,7 +311,7 @@ const Dashboard = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {employeeStats.map((stat) => (
-            <StatCard key={stat.title} {...stat} />
+            <StatCard key={stat.title} {...stat} icon={getIcon(stat.icon)} />
           ))}
         </div>
       </section>
@@ -298,7 +326,7 @@ const Dashboard = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {attendanceStats.map((stat) => (
-            <StatCard key={stat.title} {...stat} />
+            <StatCard key={stat.title} {...stat} icon={getIcon(stat.icon)} />
           ))}
         </div>
       </section>
@@ -315,7 +343,7 @@ const Dashboard = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {departments.map((dept) => (
-              <DepartmentCard key={dept.name} {...dept} />
+              <DepartmentCard key={dept.name} {...dept} icon={getIcon(dept.icon)} />
             ))}
           </div>
         </section>
@@ -334,7 +362,7 @@ const Dashboard = () => {
               const percentage = Math.round((stat.count / total) * 100);
               return (
                 <div key={stat.title} className="relative overflow-hidden group">
-                  <StatCard {...stat} />
+                  <StatCard {...stat} icon={getIcon(stat.icon)} />
                   <div className="absolute right-4 bottom-4 bg-gray-100 text-gray-800 text-xs font-black px-2.5 py-1 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200 shadow-sm">
                     {percentage}%
                   </div>

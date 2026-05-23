@@ -221,15 +221,15 @@ const Masters = () => {
   };
 
   return (
-    <div className="space-y-8 pb-16">
-      {/* 1. Header Banner */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+    <div className="space-y-6 pb-16">
+      {/* 1. Header Banner (Compact) */}
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-3xl py-5 px-6 md:py-6 md:px-8 text-white shadow-lg relative overflow-hidden flex flex-col items-start gap-2 text-left">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.08),transparent)] pointer-events-none" />
-        <div className="text-left space-y-2 z-10">
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight m-0 text-white flex items-center gap-3">
-            <TrendingUp className="w-10 h-10 text-amber-300 animate-pulse" /> HRMS Setup: {activeTab}
+        <div className="text-left space-y-1.5 z-10">
+          <h1 className="text-lg md:text-xl font-bold tracking-tight m-0 text-white flex items-center gap-2">
+            <TrendingUp className="w-6 h-6 text-amber-300 animate-pulse" /> HRMS Setup: {activeTab}
           </h1>
-          <p className="text-indigo-100 text-sm md:text-base font-medium max-w-2xl">
+          <p className="text-indigo-100 text-xs md:text-sm font-medium max-w-3xl m-0">
             Configure system directories, holiday lists, shift rosters, department structures, leave allocation formulas, salary bands, and administrative rules.
           </p>
         </div>

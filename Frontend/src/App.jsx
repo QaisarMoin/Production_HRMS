@@ -8,6 +8,7 @@ import Attendance from "./pages/Attendance";
 import DepartmentMaster from "./pages/masters/DepartmentMaster";
 import Reimbursement from "./pages/Reimbursement";
 import LeavePage from "./pages/LeavePage";
+import Payroll from "./pages/Payroll";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 
@@ -42,17 +43,7 @@ function App() {
         />
         <Route path="attendance" element={<Attendance />} />
         <Route path="leave" element={<LeavePage />} />
-        <Route
-          path="payroll"
-          element={
-            <div className="p-6 text-left">
-              <h1 className="text-2xl font-bold text-gray-900">Payroll</h1>
-              <p className="mt-2 text-gray-600">
-                Payroll system is live. Configure Salary Structures and Bonus Policies in the Masters panel.
-              </p>
-            </div>
-          }
-        />
+        <Route path="payroll" element={<Payroll />} />
         <Route
           path="reports"
           element={

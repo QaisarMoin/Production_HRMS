@@ -130,7 +130,7 @@ router.put('/:id',
         return ApiResponse.validationError(res, 'Validation failed', errors.array());
       }
 
-      const { name, code, description, headOfDepartment, isActive } = req.body;
+      const { name, code, description, headOfDepartment, isActive, status, department_name } = req.body;
 
       // Check if department exists
       let department = await Department.findById(req.params.id);
@@ -139,11 +139,12 @@ router.put('/:id',
       }
 
       // Check if another department with same name or code exists
-      if (name || code) {
+      const targetName = name || department_name;
+      if (targetName || code) {
         const existingDepartment = await Department.findOne({
           _id: { $ne: req.params.id },
           $or: [
-            ...(name ? [{ name }] : []),
+            ...(targetName ? [{ name: targetName }, { department_name: targetName }] : []),
             ...(code ? [{ code: code.toUpperCase() }] : [])
           ]
         });
@@ -153,15 +154,27 @@ router.put('/:id',
         }
       }
 
+      // Determine correct status & isActive values
+      let finalStatus = status;
+      let finalIsActive = isActive;
+      
+      if (finalStatus !== undefined) {
+        finalIsActive = (finalStatus === 'active');
+      } else if (finalIsActive !== undefined) {
+        finalStatus = finalIsActive ? 'active' : 'inactive';
+      }
+
       // Update department
       department = await Department.findByIdAndUpdate(
         req.params.id,
         {
-          ...(name && { name }),
+          ...(targetName && { name: targetName, department_name: targetName }),
           ...(code && { code: code.toUpperCase() }),
           ...(description !== undefined && { description }),
           ...(headOfDepartment !== undefined && { headOfDepartment }),
-          ...(isActive !== undefined && { isActive })
+          ...(finalIsActive !== undefined && { isActive: finalIsActive }),
+          ...(finalStatus !== undefined && { status: finalStatus }),
+          modified_date: Date.now()
         },
         { new: true, runValidators: true }
       ).populate('headOfDepartment', 'firstName lastName email');
